@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 public class ParallelModel extends Model {
     private volatile Set<Set<Particle>> chunks;
-  //  public ParallelModel(){p = Collections.synchronizedList(p);}
 
     public void step() {
         chunks = new HashSet<>();
