@@ -11,26 +11,26 @@ public class ModelParallel extends ModelAbstract {
   //  public ModelParallel(){p = Collections.synchronizedList(p);}
 
     public void step() {
-        chunks = new HashSet<>();
-        p.parallelStream().forEach(particle -> {
-            particle.interact(this);
-            addChunk(particle); });
-
-        chunks.stream().forEach(c -> p.removeAll(c));
-        p.addAll (chunks.parallelStream()
-                .map(c -> mergeParticles(c))
-                .collect(Collectors.toList()));
-
-        p.parallelStream().forEach(particle -> particle.move(this));
-        updateGraphicalRepresentation();
-
+//        chunks = new HashSet<>();
 //        p.parallelStream().forEach(particle -> {
-//            particle.interact(this);});
-//        mergeParticles();
+//            particle.interact(this);
+//            addChunk(particle); });
 //
-//        p.parallelStream().forEach(particle -> {
-//            particle.move(this);});
+//        chunks.stream().forEach(c -> p.removeAll(c));
+//        p.addAll (chunks.parallelStream()
+//                .map(c -> mergeParticles(c))
+//                .collect(Collectors.toList()));
+//
+//        p.parallelStream().forEach(particle -> particle.move(this));
 //        updateGraphicalRepresentation();
+
+        p.parallelStream().forEach(particle -> {
+            particle.interact(this);});
+        mergeParticles();
+
+        p.parallelStream().forEach(particle -> {
+            particle.move(this);});
+        updateGraphicalRepresentation();
     }
     private void updateGraphicalRepresentation() {
         ArrayList<DrawableParticle> d=new ArrayList<DrawableParticle>();
