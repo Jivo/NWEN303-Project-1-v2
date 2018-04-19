@@ -3,7 +3,6 @@ package model;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.IntStream;
 
 public class Particle{
   public Particle(double mass, double speedX, double speedY, double x, double y){
@@ -19,14 +18,14 @@ public class Particle{
   public double speedY;
   public double x;
   public double y;
-  public void move(Model m){
-    x+=speedX/(Model.timeFrame);
-    y+=speedY/(Model.timeFrame);
+  public void move(ModelAbstract m){
+    x+=speedX/(ModelAbstract.timeFrame);
+    y+=speedY/(ModelAbstract.timeFrame);
     //uncomment the following to have particle bouncing on the boundary
     //if(this.x<0){this.speedX*=-1;}
     //if(this.y<0){this.speedY*=-1;}
-    //if(this.x>SequentialModel.size){this.speedX*=-1;}
-    //if(this.y>SequentialModel.size){this.speedY*=-1;}
+    //if(this.x>Model.size){this.speedX*=-1;}
+    //if(this.y>Model.size){this.speedY*=-1;}
   }
   public  boolean isImpact(double dist,double otherMass){
     if(Double.isNaN(dist)){return true;}
@@ -47,21 +46,21 @@ public class Particle{
     double distY=this.y-p.y;
     return distX*distX+distY*distY;
   }
-  public void interact(Model m){
+  public void interact(ModelAbstract m){
     for(Particle p:m.p){
       if(p==this)continue;
       double dirX=-Math.signum(this.x-p.x);
       double dirY=-Math.signum(this.y-p.y);
       double dist=distance2(p);
       if(isImpact(dist,p.mass)){this.impacting.add(p);continue;}
-      dirX=p.mass* SequentialModel.gravitationalConstant*dirX/dist;
-      dirY=p.mass* SequentialModel.gravitationalConstant*dirY/dist;
-      assert this.speedX<= SequentialModel.lightSpeed:this.speedX;
-      assert this.speedY<= SequentialModel.lightSpeed:this.speedY;
+      dirX=p.mass* Model.gravitationalConstant*dirX/dist;
+      dirY=p.mass* Model.gravitationalConstant*dirY/dist;
+      assert this.speedX<= Model.lightSpeed:this.speedX;
+      assert this.speedY<= Model.lightSpeed:this.speedY;
       double newSpeedX=this.speedX+dirX;
-      newSpeedX/=(1+(this.speedX*dirX)/ SequentialModel.lightSpeed);
+      newSpeedX/=(1+(this.speedX*dirX)/ Model.lightSpeed);
       double newSpeedY=this.speedY+dirY;
-      newSpeedY/=(1+(this.speedY*dirY)/ SequentialModel.lightSpeed);
+      newSpeedY/=(1+(this.speedY*dirY)/ Model.lightSpeed);
       if(!Double.isNaN(dirX)){this.speedX=newSpeedX;}
       if(!Double.isNaN(dirY)){this.speedY=newSpeedY;}
     }

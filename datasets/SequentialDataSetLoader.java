@@ -2,12 +2,12 @@ package datasets;
 
 import java.util.Random;
 
-import model.SequentialModel;
+import model.Model;
 import model.Particle;
 
 public class SequentialDataSetLoader {
-  public static SequentialModel getRegularGrid(int min, int max, int distance){
-    SequentialModel result=new SequentialModel();
+  public static Model getRegularGrid(int min, int max, int distance){
+    Model result=new Model();
     for(int i=min;i<max;i+=distance){
       for(int j=min;j<max;j+=distance){
         result.p.add(new Particle(0.5,0,0,i,j));
@@ -15,8 +15,8 @@ public class SequentialDataSetLoader {
       }
     return result;
   }
-  public static SequentialModel getRandomGrid(int min, int max, int distance){
-    SequentialModel result=new SequentialModel();
+  public static Model getRandomGrid(int min, int max, int distance){
+    Model result=new Model();
     Random r=new Random(1);
     for(int i=min;i<max;i+=distance){
       for(int j=min;j<max;j+=distance){
@@ -25,16 +25,16 @@ public class SequentialDataSetLoader {
       }
     return result;
   }
-  public static SequentialModel getRandomSet(int min, int max, int size){
-    SequentialModel result=new SequentialModel();
+  public static Model getRandomSet(int min, int max, int size){
+    Model result=new Model();
     Random r=new Random(1);
     for(int i=0;i<size;i++){
       result.p.add(new Particle(0.5,0,0,min+r.nextInt(max-min)+0.5-r.nextDouble(),min+r.nextInt(max-min)+0.5-r.nextDouble()));
       }
     return result;
   }
-  public static SequentialModel getRandomRotatingGrid(int min, int max, int distance){
-    SequentialModel result=new SequentialModel();
+  public static Model getRandomRotatingGrid(int min, int max, int distance){
+    Model result=new Model();
     Random r=new Random(1);
     for(int i=min;i<max;i+=distance){
       for(int j=min;j<max;j+=distance){

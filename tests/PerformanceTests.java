@@ -1,19 +1,16 @@
 package tests;
 import datasets.ParallelDataSetLoader;
 import datasets.SequentialDataSetLoader;
+import model.ModelParallel;
 import model.Model;
-import model.ParallelModel;
-import model.Particle;
-import model.SequentialModel;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import java.util.List;
 import java.util.stream.IntStream;
 
 public class PerformanceTests {
-    ParallelModel mp;
-    SequentialModel ms;
+    ModelParallel mp;
+    Model ms;
     final int MAX_ITERATIONS = 500;
     final int MAX_REPEATS = 100;
 

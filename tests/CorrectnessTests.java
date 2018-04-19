@@ -1,10 +1,10 @@
 package tests;
 import datasets.ParallelDataSetLoader;
 import datasets.SequentialDataSetLoader;
-import model.Model;
-import model.ParallelModel;
+import model.ModelParallel;
+import model.ModelAbstract;
 import model.Particle;
-import model.SequentialModel;
+import model.Model;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class CorrectnessTests {
-    ParallelModel mp;
-    SequentialModel ms;
+    ModelParallel mp;
+    Model ms;
     final int MAX_ITERATIONS = 500;
 
     @Test public void testEvery_20_States(){ testAll(20); }
@@ -47,7 +47,7 @@ public class CorrectnessTests {
         mp = ParallelDataSetLoader.getRandomGrid(100, 800, dist);
         ms = SequentialDataSetLoader.getRandomGrid(100, 800, dist);
     }
-    private boolean compareState(Model m1, Model m2){
+    private boolean compareState(ModelAbstract m1, ModelAbstract m2){
         List<Particle> ps1 = m1.p;
         List<Particle> ps2 = m2.p;
         return Particle.equalSets(ps1, ps2);

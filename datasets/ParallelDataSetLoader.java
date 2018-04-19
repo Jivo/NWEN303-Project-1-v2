@@ -1,13 +1,13 @@
 package datasets;
 
+import model.ModelParallel;
 import model.Particle;
-import model.ParallelModel;
 
 import java.util.Random;
 
 public class ParallelDataSetLoader {
-    public static ParallelModel getRegularGrid(int min, int max, int distance){
-        ParallelModel result=new ParallelModel();
+    public static ModelParallel getRegularGrid(int min, int max, int distance){
+        ModelParallel result=new ModelParallel();
         for(int i=min;i<max;i+=distance){
             for(int j=min;j<max;j+=distance){
                 result.p.add(new Particle(0.5,0,0,i,j));
@@ -15,8 +15,8 @@ public class ParallelDataSetLoader {
         }
         return result;
     }
-    public static ParallelModel getRandomGrid(int min, int max, int distance){
-        ParallelModel result=new ParallelModel();
+    public static ModelParallel getRandomGrid(int min, int max, int distance){
+        ModelParallel result=new ModelParallel();
         Random r=new Random(1);
         for(int i=min;i<max;i+=distance){
             for(int j=min;j<max;j+=distance){
@@ -25,16 +25,16 @@ public class ParallelDataSetLoader {
         }
         return result;
     }
-    public static ParallelModel getRandomSet(int min, int max, int size){
-        ParallelModel result=new ParallelModel();
+    public static ModelParallel getRandomSet(int min, int max, int size){
+        ModelParallel result=new ModelParallel();
         Random r=new Random(1);
         for(int i=0;i<size;i++){
             result.p.add(new Particle(0.5,0,0,min+r.nextInt(max-min)+0.5-r.nextDouble(),min+r.nextInt(max-min)+0.5-r.nextDouble()));
         }
         return result;
     }
-    public static ParallelModel getRandomRotatingGrid(int min, int max, int distance){
-        ParallelModel result=new ParallelModel();
+    public static ModelParallel getRandomRotatingGrid(int min, int max, int distance){
+        ModelParallel result=new ModelParallel();
         Random r=new Random(1);
         for(int i=min;i<max;i+=distance){
             for(int j=min;j<max;j+=distance){

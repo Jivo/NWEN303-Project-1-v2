@@ -8,18 +8,17 @@ import javax.swing.*;
 
 import datasets.ParallelDataSetLoader;
 import datasets.SequentialDataSetLoader;
-import model.Model;
-import model.ParallelModel;
-import model.SequentialModel;
+import model.ModelAbstract;
+
 public class Gui extends JFrame implements Runnable{
   private static int frameTime=10;//use a bigger or smaller number for faster/slower simulation
   private static int stepsForFrame=20;//use a bigger or smaller number for faster/slower simulation
   //it will attempt to do 4 steps every 20 milliseconds (less if the machine is too slow)
 
   public static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(4);
-  Model m;
+  ModelAbstract m;
   String name;
-  Gui(Model m, String name){this.m=m;this.name=name;}
+  Gui(ModelAbstract m, String name){this.m=m;this.name=name;}
   public void run() {
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setTitle(name);
@@ -34,7 +33,7 @@ public class Gui extends JFrame implements Runnable{
       );
     }
   private static final class MainLoop implements Runnable {
-    Model m;MainLoop(Model m){this.m=m;}
+    ModelAbstract m;MainLoop(ModelAbstract m){this.m=m;}
     public void run() {
       try{
         while(true){
@@ -53,22 +52,22 @@ public class Gui extends JFrame implements Runnable{
       }
     }
   public static void main(String[] args) {
-    //Model m=SequentialDataSetLoader.getRegularGrid(100, 800, 40);//Try those configurations
-//    Model m= SequentialDataSetLoader.getRandomRotatingGrid(100, 800, 40);
-//    Model m=SequentialDataSetLoader.getRandomSet(100, 800, 1000);
-    //Model m=SequentialDataSetLoader.getRandomSet(100, 800, 100);
-    //Model m=SequentialDataSetLoader.getRandomGrid(100, 800, 30);
+    //ModelAbstract m=SequentialDataSetLoader.getRegularGrid(100, 800, 40);//Try those configurations
+//    ModelAbstract m= SequentialDataSetLoader.getRandomRotatingGrid(100, 800, 40);
+//    ModelAbstract m=SequentialDataSetLoader.getRandomSet(100, 800, 1000);
+    //ModelAbstract m=SequentialDataSetLoader.getRandomSet(100, 800, 100);
+    //ModelAbstract m=SequentialDataSetLoader.getRandomGrid(100, 800, 30);
 
-    //Model m=ParallelDataSetLoader.getRegularGrid(100, 800, 40);//Try those configurations
-//    Model m= ParallelDataSetLoader.getRandomRotatingGrid(100, 800, 40);
-//    Model m=ParallelDataSetLoader.getRandomSet(100, 800, 1000);
-    //Model m=ParallelDataSetLoader.getRandomSet(100, 800, 100);
-    //Model m=ParallelDataSetLoader.getRandomGrid(100, 800, 30);
+    //ModelAbstract m=ParallelDataSetLoader.getRegularGrid(100, 800, 40);//Try those configurations
+//    ModelAbstract m= ParallelDataSetLoader.getRandomRotatingGrid(100, 800, 40);
+//    ModelAbstract m=ParallelDataSetLoader.getRandomSet(100, 800, 1000);
+    //ModelAbstract m=ParallelDataSetLoader.getRandomSet(100, 800, 100);
+    //ModelAbstract m=ParallelDataSetLoader.getRandomGrid(100, 800, 30);
 
-    Model mp= ParallelDataSetLoader.getRandomRotatingGrid(100, 800, 40);
-    Model ms= SequentialDataSetLoader.getRandomRotatingGrid(100, 800, 40);
-//    Model mp=ParallelDataSetLoader.getRandomSet(100, 800, 100);
-//    Model ms=SequentialDataSetLoader.getRandomSet(100, 800, 100);
+    ModelAbstract mp= ParallelDataSetLoader.getRandomRotatingGrid(100, 800, 40);
+    ModelAbstract ms= SequentialDataSetLoader.getRandomRotatingGrid(100, 800, 40);
+//    ModelAbstract mp=ParallelDataSetLoader.getRandomSet(100, 800, 100);
+//    ModelAbstract ms=SequentialDataSetLoader.getRandomSet(100, 800, 100);
 
     scheduler.schedule(new MainLoop(mp), 500, TimeUnit.MILLISECONDS);
     SwingUtilities.invokeLater(new Gui(mp, "Parallel"));
